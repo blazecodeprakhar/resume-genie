@@ -1,4 +1,5 @@
 import { Sparkles, Shield, Layout, Download, ClipboardList, Cpu, FileDown, Star, Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
