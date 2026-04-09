@@ -9,7 +9,7 @@ interface Props {
 export default function BoldTemplate({ data, generated }: Props) {
   const { personalInfo } = data;
   return (
-    <div className="min-h-[1122px] bg-white text-gray-900 text-[11px] leading-relaxed" style={{ width: '794px', fontFamily: 'Inter, sans-serif' }}>
+    <div className="h-[1122px] overflow-hidden relative break-inside-avoid bg-white text-gray-900 text-[11px] leading-relaxed" style={{ width: '794px', fontFamily: 'Inter, sans-serif' }}>
       {/* Header - full-width gradient band */}
       <div className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #dc2626, #991b1b)' }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 80% 20%, white 0%, transparent 60%)' }} />

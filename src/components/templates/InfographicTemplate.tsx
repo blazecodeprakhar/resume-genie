@@ -6,7 +6,7 @@ interface Props { data: ResumeData; generated: GeneratedResume; }
 export default function InfographicTemplate({ data, generated }: Props) {
   const { personalInfo } = data;
   return (
-    <div className="min-h-[1122px] bg-white text-gray-900 text-[11px] leading-relaxed" style={{ width: '794px', fontFamily: 'Inter, sans-serif' }}>
+    <div className="h-[1122px] overflow-hidden relative break-inside-avoid bg-white text-gray-900 text-[11px] leading-relaxed" style={{ width: '794px', fontFamily: 'Inter, sans-serif' }}>
       <div className="flex">
         {/* Left sidebar */}
         <div className="w-[280px] bg-gradient-to-b from-teal-600 to-teal-800 text-white p-7 flex flex-col gap-5">

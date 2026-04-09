@@ -170,8 +170,8 @@ export default function PreviewPage() {
           </div>
         ) : generated ? (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex justify-center">
-            <div className="shadow-elevated rounded-xl overflow-hidden border border-border">
-              <div ref={resumeRef} className="overflow-auto max-h-[80vh]" style={{ width: 'fit-content' }}>
+            <div className="shadow-elevated rounded-xl overflow-auto max-h-[80vh] border border-border max-w-full">
+              <div ref={resumeRef} className="shrink-0" style={{ width: '794px' }}>
                 <TemplateComponent data={data} generated={generated} />
               </div>
             </div>

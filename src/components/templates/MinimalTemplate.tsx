@@ -8,7 +8,7 @@ interface Props {
 export default function MinimalTemplate({ data, generated }: Props) {
   const { personalInfo } = data;
   return (
-    <div className="min-h-[1122px] bg-white text-gray-800 text-[11px] leading-relaxed p-10" style={{ width: '794px', fontFamily: 'Inter, sans-serif' }}>
+    <div className="h-[1122px] overflow-hidden relative break-inside-avoid bg-white text-gray-800 text-[11px] leading-relaxed p-10" style={{ width: '794px', fontFamily: 'Inter, sans-serif' }}>
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-light tracking-tight text-gray-900">{personalInfo.fullName || 'Your Name'}</h1>
