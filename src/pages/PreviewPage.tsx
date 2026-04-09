@@ -97,15 +97,26 @@ export default function PreviewPage() {
 
     try {
       const html2pdf = (await import('html2pdf.js')).default;
-      await html2pdf().set({
+      const element = resumeRef.current;
+      const opt = {
         margin: 0,
         filename: `${data.personalInfo.fullName || 'resume'}.pdf`,
-        image: { type: 'jpeg', quality: 1.0 },
-        html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      }).from(resumeRef.current).save();
+        image: { type: 'jpeg' as const, quality: 1.0 },
+        html2canvas: { 
+          scale: 2, 
+          useCORS: true, 
+          scrollY: 0, 
+          scrollX: 0,
+          windowWidth: 794,
+          windowHeight: 1122
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const }
+      };
+      
+      await html2pdf().set(opt).from(element).save();
       toast({ title: 'PDF downloaded!' });
-    } catch {
+    } catch (err) {
+      console.error(err);
       toast({ title: 'Download failed', variant: 'destructive' });
     } finally {
       if (scrollParent) scrollParent.scrollTop = originalScrollTop;
@@ -177,7 +188,7 @@ export default function PreviewPage() {
         ) : generated ? (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex justify-center">
             <div className="shadow-elevated rounded-xl overflow-auto max-h-[80vh] border border-border max-w-full">
-              <div ref={resumeRef} className="shrink-0" style={{ width: '794px' }}>
+              <div ref={resumeRef} className="shrink-0" style={{ width: '210mm', minHeight: '297mm' }}>
                 <TemplateComponent data={data} generated={generated} />
               </div>
             </div>
