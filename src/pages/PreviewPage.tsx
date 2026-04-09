@@ -90,19 +90,25 @@ export default function PreviewPage() {
   const downloadPdf = async () => {
     if (!resumeRef.current) return;
     setDownloading(true);
+    
+    const scrollParent = resumeRef.current.parentElement;
+    const originalScrollTop = scrollParent ? scrollParent.scrollTop : 0;
+    if (scrollParent) scrollParent.scrollTop = 0;
+
     try {
       const html2pdf = (await import('html2pdf.js')).default;
       await html2pdf().set({
         margin: 0,
         filename: `${data.personalInfo.fullName || 'resume'}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
+        image: { type: 'jpeg', quality: 1.0 },
+        html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
       }).from(resumeRef.current).save();
       toast({ title: 'PDF downloaded!' });
     } catch {
       toast({ title: 'Download failed', variant: 'destructive' });
     } finally {
+      if (scrollParent) scrollParent.scrollTop = originalScrollTop;
       setDownloading(false);
     }
   };
