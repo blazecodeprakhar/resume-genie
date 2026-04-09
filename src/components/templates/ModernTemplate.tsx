@@ -9,7 +9,7 @@ interface Props {
 export default function ModernTemplate({ data, generated }: Props) {
   const { personalInfo } = data;
   return (
-    <div className="flex h-[297mm] min-h-[297mm] overflow-hidden relative bg-white text-gray-900 text-[11px] leading-relaxed" style={{ width: '210mm', fontFamily: 'Inter, sans-serif' }}>
+    <div className="flex h-[296mm] min-h-[296mm] overflow-hidden relative bg-white text-gray-900 text-[11px] leading-relaxed" style={{ width: '210mm', fontFamily: 'Inter, sans-serif' }}>
       {/* Sidebar */}
       <div className="w-[260px] bg-[#1e3a8a] text-white p-7 flex flex-col gap-6">
         <div>

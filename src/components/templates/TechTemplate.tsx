@@ -9,7 +9,7 @@ interface Props {
 export default function TechTemplate({ data, generated }: Props) {
   const { personalInfo } = data;
   return (
-    <div className="h-[297mm] min-h-[297mm] overflow-hidden relative bg-[#0f172a] text-gray-200 text-[11px] leading-relaxed" style={{ width: '210mm', fontFamily: "'JetBrains Mono', 'Fira Code', monospace" }}>
+    <div className="h-[296mm] min-h-[296mm] overflow-hidden relative bg-[#0f172a] text-gray-200 text-[11px] leading-relaxed" style={{ width: '210mm', fontFamily: "'JetBrains Mono', 'Fira Code', monospace" }}>
       {/* Terminal-style header */}
       <div className="bg-[#1e293b] border-b border-cyan-500/20 p-6">
         <div className="flex items-center gap-2 mb-3">

@@ -9,7 +9,7 @@ interface Props {
 export default function ElegantTemplate({ data, generated }: Props) {
   const { personalInfo } = data;
   return (
-    <div className="h-[297mm] min-h-[297mm] overflow-hidden relative bg-[#faf9f6] text-gray-800 text-[11px] leading-relaxed" style={{ width: '210mm', fontFamily: "'Georgia', serif" }}>
+    <div className="h-[296mm] min-h-[296mm] overflow-hidden relative bg-[#faf9f6] text-gray-800 text-[11px] leading-relaxed" style={{ width: '210mm', fontFamily: "'Georgia', serif" }}>
       {/* Header - centered, refined */}
       <div className="text-center pt-10 pb-6 px-10">
         <h1 className="text-3xl font-normal tracking-[0.15em] uppercase text-gray-900" style={{ fontFamily: "'Georgia', serif" }}>

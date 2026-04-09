@@ -90,36 +90,32 @@ export default function PreviewPage() {
   const downloadPdf = async () => {
     if (!resumeRef.current) return;
     setDownloading(true);
-    
-    const scrollParent = resumeRef.current.parentElement;
-    const originalScrollTop = scrollParent ? scrollParent.scrollTop : 0;
-    if (scrollParent) scrollParent.scrollTop = 0;
 
     try {
       const html2pdf = (await import('html2pdf.js')).default;
       const element = resumeRef.current;
+      
       const opt = {
         margin: 0,
         filename: `${data.personalInfo.fullName || 'resume'}.pdf`,
-        image: { type: 'jpeg' as const, quality: 1.0 },
+        image: { type: 'jpeg' as const, quality: 0.98 },
         html2canvas: { 
           scale: 2, 
-          useCORS: true, 
-          scrollY: 0, 
-          scrollX: 0,
-          windowWidth: 794,
-          windowHeight: 1122
+          useCORS: true,
+          letterRendering: true,
+          scrollY: 0,
+          scrollX: 0
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const }
       };
       
+      // Perform capture
       await html2pdf().set(opt).from(element).save();
       toast({ title: 'PDF downloaded!' });
     } catch (err) {
-      console.error(err);
+      console.error('PDF Error:', err);
       toast({ title: 'Download failed', variant: 'destructive' });
     } finally {
-      if (scrollParent) scrollParent.scrollTop = originalScrollTop;
       setDownloading(false);
     }
   };
@@ -186,9 +182,9 @@ export default function PreviewPage() {
             <p className="text-sm text-muted-foreground mt-1">AI is crafting professional content for you</p>
           </div>
         ) : generated ? (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex justify-center">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-center">
             <div className="shadow-elevated rounded-xl overflow-auto max-h-[80vh] border border-border max-w-full">
-              <div ref={resumeRef} className="shrink-0" style={{ width: '210mm', minHeight: '297mm' }}>
+              <div ref={resumeRef} className="shrink-0 bg-white" style={{ width: '210mm' }}>
                 <TemplateComponent data={data} generated={generated} />
               </div>
             </div>

@@ -5,7 +5,7 @@ interface Props { data: ResumeData; generated: GeneratedResume; }
 export default function StarterTemplate({ data, generated }: Props) {
   const { personalInfo } = data;
   return (
-    <div className="h-[297mm] min-h-[297mm] overflow-hidden relative bg-white text-gray-900 text-[11px] leading-relaxed p-10" style={{ width: '210mm', fontFamily: 'Inter, sans-serif' }}>
+    <div className="h-[296mm] min-h-[296mm] overflow-hidden relative bg-white text-gray-900 text-[11px] leading-relaxed p-10" style={{ width: '210mm', fontFamily: 'Inter, sans-serif' }}>
       <div className="bg-gradient-to-r from-indigo-500 to-violet-600 rounded-2xl p-7 text-white mb-6">
         <h1 className="text-3xl font-extrabold">{personalInfo.fullName || 'Your Name'}</h1>
         <p className="text-indigo-200 text-sm mt-1 font-medium">{personalInfo.targetRole || 'Target Role'}</p>

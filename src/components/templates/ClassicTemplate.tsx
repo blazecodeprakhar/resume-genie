@@ -8,7 +8,7 @@ interface Props {
 export default function ClassicTemplate({ data, generated }: Props) {
   const { personalInfo } = data;
   return (
-    <div className="h-[297mm] min-h-[297mm] overflow-hidden relative bg-white text-gray-900 text-[11px] leading-relaxed p-10" style={{ width: '210mm', fontFamily: 'Inter, sans-serif' }}>
+    <div className="h-[296mm] min-h-[296mm] overflow-hidden relative bg-white text-gray-900 text-[11px] leading-relaxed p-10" style={{ width: '210mm', fontFamily: 'Inter, sans-serif' }}>
       {/* Header */}
       <div className="text-center border-b-2 border-gray-900 pb-4 mb-6">
         <h1 className="text-3xl font-bold tracking-tight">{personalInfo.fullName || 'Your Name'}</h1>
