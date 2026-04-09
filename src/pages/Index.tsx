@@ -10,7 +10,7 @@ import ParallaxSection, { ParallaxDivider } from '@/components/landing/ParallaxS
 const features = [
   { icon: Sparkles, title: 'AI-Powered Writing', desc: 'GPT transforms your input into professionally written, compelling resume content.' },
   { icon: Shield, title: 'ATS-Optimized', desc: 'Keyword-rich formatting ensures your resume passes Applicant Tracking Systems.' },
-  { icon: Layout, title: '12 Pro Templates', desc: 'Modern, Classic, Minimal, Executive, Creative, Bold, Elegant, Tech, Corporate, Starter, Infographic & Academic.' },
+  { icon: Layout, title: '12 Premium Templates', desc: 'Modern, Classic, Minimal, Executive, Creative, Bold, Elegant, Tech, Corporate, Starter, Infographic & Academic.' },
   { icon: Download, title: 'Instant PDF', desc: 'Download your finished resume as a clean, print-ready PDF in one click.' },
 ];
 
@@ -22,14 +22,27 @@ const steps = [
 
 const testimonials = [
   { name: 'Priya Sharma', role: 'Software Engineer', text: 'I landed 3 interviews within a week of using ResumeAI. The AI-written bullet points were spot-on!', rating: 5 },
-  { name: 'Rahul Mehta', role: 'Marketing Manager', text: 'The ATS optimization is incredible. My resume finally gets past the filters. Worth every rupee.', rating: 5 },
+  { name: 'Rahul Mehta', role: 'Marketing Manager', text: 'The ATS optimization is incredible. My resume finally gets past the filters. Can\'t believe it\'s free!', rating: 5 },
   { name: 'Ananya Desai', role: 'Data Analyst', text: 'Clean templates, smooth experience, and the AI summary is better than what I could write myself.', rating: 5 },
 ];
 
 const plans = [
-  { name: 'Free', price: '₹0', period: 'forever', features: ['1 Resume', '3 Templates', 'Watermarked PDF', 'Basic AI writing'], cta: 'Get Started Free', highlighted: false },
-  { name: 'Pro', price: '₹299', period: '/month', features: ['Unlimited Resumes', 'All 12 Templates', 'Clean PDF (no watermark)', 'ATS Score Analysis', 'Priority AI generation'], cta: 'Go Pro', highlighted: true },
-  { name: 'Annual', price: '₹1,999', period: '/year', features: ['Everything in Pro', 'Cover Letter Generator', '2 months free', 'Email support', 'Early access to features'], cta: 'Best Value', highlighted: false },
+  { 
+    name: 'Free Forever', 
+    price: '₹0', 
+    period: 'forever', 
+    features: [
+      'Unlimited Resumes', 
+      'All 12 Premium Templates', 
+      'Clean PDF (no watermark)', 
+      'ATS Score Analysis', 
+      'AI-Powered Writing',
+      'Cover Letter Generator',
+      'Priority Support'
+    ], 
+    cta: 'Get Started for Free', 
+    highlighted: true 
+  },
 ];
 
 export default function LandingPage() {
@@ -134,50 +147,56 @@ export default function LandingPage() {
         <section id="pricing" className="py-20 md:py-28 bg-muted/30">
           <div className="container mx-auto px-4">
             <ScrollReveal className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Simple, transparent pricing</h2>
-              <p className="mt-4 text-muted-foreground text-lg">Start free. Upgrade when you need more.</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">100% Free Forever</h2>
+              <p className="mt-4 text-muted-foreground text-lg">Access all professional features without spending a paisa.</p>
             </ScrollReveal>
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto" staggerDelay={0.12}>
+            <div className="max-w-lg mx-auto">
               {plans.map((p) => (
-                <StaggerItem key={p.name}>
+                <ScrollReveal key={p.name} scale>
                   <TiltCard>
-                    <div className={`rounded-2xl border p-8 cursor-default h-full ${
+                    <div className={`rounded-3xl border-2 p-8 md:p-10 cursor-default h-full ${
                       p.highlighted
                         ? 'border-primary bg-card shadow-elevated relative'
                         : 'border-border bg-card shadow-card'
                     }`}>
                       {p.highlighted && (
-                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full gradient-primary px-4 py-1 text-xs font-semibold text-primary-foreground">
-                          Most Popular
+                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full gradient-primary px-6 py-1.5 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-primary">
+                          Best for Everyone
                         </div>
                       )}
-                      <h3 className="text-xl font-bold text-card-foreground">{p.name}</h3>
-                      <div className="mt-4 flex items-baseline gap-1">
-                        <span className="text-4xl font-extrabold text-foreground">{p.price}</span>
-                        <span className="text-muted-foreground text-sm">{p.period}</span>
+                      <div className="text-center mb-8">
+                        <h3 className="text-2xl font-bold text-card-foreground mb-2">{p.name}</h3>
+                        <div className="flex items-baseline justify-center gap-1">
+                          <span className="text-5xl font-extrabold text-foreground">{p.price}</span>
+                          <span className="text-muted-foreground text-base tracking-tight">{p.period}</span>
+                        </div>
+                        <p className="mt-4 text-sm text-muted-foreground">No credit card required. No hidden costs.</p>
                       </div>
-                      <ul className="mt-6 space-y-3">
+                      
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
                         {p.features.map(f => (
-                          <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Check className="h-4 w-4 text-primary flex-shrink-0" /> {f}
-                          </li>
+                          <div key={f} className="flex items-center gap-3 text-sm font-medium text-foreground/80">
+                            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-primary">
+                              <Check className="h-3.5 w-3.5" />
+                            </div>
+                            {f}
+                          </div>
                         ))}
-                      </ul>
+                      </div>
+
                       <Button
-                        className={`mt-8 w-full ${
-                          p.highlighted
-                            ? 'gradient-primary text-primary-foreground shadow-primary hover:opacity-90'
-                            : ''
-                        }`}
-                        variant={p.highlighted ? 'default' : 'outline'}
+                        asChild
+                        className="mt-10 w-full text-base font-bold h-12 gradient-primary text-primary-foreground shadow-primary hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98]"
                       >
-                        {p.cta}
+                        <Link to="/builder">
+                          {p.cta}
+                        </Link>
                       </Button>
                     </div>
                   </TiltCard>
-                </StaggerItem>
+                </ScrollReveal>
               ))}
-            </StaggerContainer>
+            </div>
           </div>
         </section>
       </ParallaxSection>

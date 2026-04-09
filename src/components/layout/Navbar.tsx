@@ -37,7 +37,7 @@ export default function Navbar() {
     { href: '#features', label: 'Features' },
     { href: '#templates', label: 'Templates' },
     { href: '#how-it-works', label: 'How it works' },
-    { href: '#pricing', label: 'Pricing' },
+    { href: '#pricing', label: 'Free Forever' },
   ] : [];
 
   return (
