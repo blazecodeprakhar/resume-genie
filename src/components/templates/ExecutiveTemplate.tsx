@@ -8,7 +8,7 @@ interface Props {
 export default function ExecutiveTemplate({ data, generated }: Props) {
   const { personalInfo } = data;
   return (
-    <div className="h-[1122px] overflow-hidden relative break-inside-avoid bg-white text-gray-900 text-[11px] leading-relaxed" style={{ width: '794px', fontFamily: 'Georgia, serif' }}>
+    <div className="h-[1122px] overflow-hidden relative bg-white text-gray-900 text-[11px] leading-relaxed" style={{ width: '794px', fontFamily: 'Georgia, serif' }}>
       {/* Header band */}
       <div className="bg-[#111827] text-white px-10 py-8">
         <h1 className="text-3xl font-bold tracking-wide">{personalInfo.fullName || 'Your Name'}</h1>

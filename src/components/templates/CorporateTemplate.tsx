@@ -6,7 +6,7 @@ interface Props { data: ResumeData; generated: GeneratedResume; }
 export default function CorporateTemplate({ data, generated }: Props) {
   const { personalInfo } = data;
   return (
-    <div className="h-[1122px] overflow-hidden relative break-inside-avoid bg-white text-gray-900 text-[11px] leading-relaxed" style={{ width: '794px', fontFamily: 'Georgia, serif' }}>
+    <div className="h-[1122px] overflow-hidden relative bg-white text-gray-900 text-[11px] leading-relaxed" style={{ width: '794px', fontFamily: 'Georgia, serif' }}>
       <div className="bg-[#1a1a2e] text-white px-10 py-8">
         <h1 className="text-3xl font-bold tracking-wide">{personalInfo.fullName || 'Your Name'}</h1>
         <p className="text-[#e94560] text-sm mt-1 font-semibold tracking-widest uppercase">{personalInfo.targetRole || 'Target Role'}</p>
