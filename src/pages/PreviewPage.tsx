@@ -20,6 +20,7 @@ import { useResumeStore } from '@/hooks/useResumeStore';
 import { generateMockResume } from '@/utils/resumeGenerator';
 import type { GeneratedResume, TemplateType } from '@/types/resume';
 import { useToast } from '@/hooks/use-toast';
+import { trackEvent } from '@/utils/analytics';
 
 const templates: { key: TemplateType; label: string }[] = [
   { key: 'modern', label: 'Modern' },
@@ -56,6 +57,11 @@ export default function PreviewPage() {
 
   const regenerate = () => {
     setLoading(true);
+    trackEvent('regenerate_resume', {
+      event_category: 'Resume',
+      event_label: template,
+      template: template
+    });
     setTimeout(() => {
       setGenerated(generateMockResume(data));
       setLoading(false);
@@ -67,13 +73,23 @@ export default function PreviewPage() {
     if (!resumeRef.current) return;
     setDownloading(true);
 
+    const filename = (() => { const n = (data.personalInfo.fullName || '').trim().split(' ')[0].toLowerCase().replace(/[^a-z0-9]/g, '') || 'resume'; return n.charAt(0).toUpperCase() + n.slice(1) + '_resume.pdf'; })();
+
+    trackEvent('download_resume', {
+      event_category: 'Resume',
+      event_label: template,
+      template: template,
+      status: 'started',
+      filename: filename
+    });
+
     try {
       const html2pdf = (await import('html2pdf.js')).default;
       const element = resumeRef.current;
       
       const opt = {
         margin: 0,
-        filename: (() => { const n = (data.personalInfo.fullName || '').trim().split(' ')[0].toLowerCase().replace(/[^a-z0-9]/g, '') || 'resume'; return n.charAt(0).toUpperCase() + n.slice(1) + '_resume.pdf'; })(),
+        filename: filename,
         image: { type: 'jpeg' as const, quality: 0.98 },
         html2canvas: { 
           scale: 2, 
@@ -87,9 +103,25 @@ export default function PreviewPage() {
       
       await html2pdf().set(opt).from(element).save();
       toast({ title: 'PDF downloaded!' });
+
+      trackEvent('download_resume', {
+        event_category: 'Resume',
+        event_label: template,
+        template: template,
+        status: 'success',
+        filename: filename
+      });
     } catch (err) {
       console.error('PDF Error:', err);
       toast({ title: 'Download failed', variant: 'destructive' });
+
+      trackEvent('download_resume', {
+        event_category: 'Resume',
+        event_label: template,
+        template: template,
+        status: 'failed',
+        error: err instanceof Error ? err.message : String(err)
+      });
     } finally {
       setDownloading(false);
     }
@@ -131,7 +163,14 @@ export default function PreviewPage() {
             {templates.map(t => (
               <button
                 key={t.key}
-                onClick={() => setTemplate(t.key)}
+                onClick={() => {
+                  setTemplate(t.key);
+                  trackEvent('change_template', {
+                    event_category: 'Resume',
+                    event_label: t.key,
+                    template: t.key
+                  });
+                }}
                 className={`px-3 py-2 text-xs font-medium transition-colors whitespace-nowrap ${
                   template === t.key
                     ? 'gradient-primary text-primary-foreground'

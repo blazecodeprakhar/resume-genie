@@ -9,6 +9,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import Navbar from '@/components/layout/Navbar';
 import { useResumeStore } from '@/hooks/useResumeStore';
 
+import { trackEvent } from '@/utils/analytics';
+
 const stepLabels = [
   { label: 'Personal', icon: User },
   { label: 'Experience', icon: Briefcase },
@@ -59,8 +61,22 @@ export default function BuilderPage() {
   };
 
   const handleNext = () => {
-    if (currentStep < 4) setCurrentStep(currentStep + 1);
-    else nav('/preview');
+    trackEvent('builder_next_step', {
+      event_category: 'Builder',
+      event_label: stepLabels[currentStep].label,
+      current_step: currentStep,
+      next_step: currentStep + 1
+    });
+
+    if (currentStep < 4) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      trackEvent('builder_complete', {
+        event_category: 'Builder',
+        event_label: 'Complete'
+      });
+      nav('/preview');
+    }
   };
 
   return (
@@ -73,7 +89,15 @@ export default function BuilderPage() {
             {stepLabels.map((s, i) => (
               <button
                 key={s.label}
-                onClick={() => setCurrentStep(i)}
+                onClick={() => {
+                  trackEvent('builder_click_step', {
+                    event_category: 'Builder',
+                    event_label: s.label,
+                    target_step: i,
+                    current_step: currentStep
+                  });
+                  setCurrentStep(i);
+                }}
                 className={`flex flex-col items-center gap-1.5 text-xs font-medium transition-colors ${
                   i <= currentStep ? 'text-primary' : 'text-muted-foreground'
                 }`}

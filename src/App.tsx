@@ -10,10 +10,22 @@ import BuilderPage from "./pages/BuilderPage.tsx";
 import PreviewPage from "./pages/PreviewPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
+import { useEffect } from "react";
+import { trackPageView } from "./utils/analytics";
+
 const queryClient = new QueryClient();
 
 function AnimatedRoutes() {
   const location = useLocation();
+
+  useEffect(() => {
+    // Small delay to ensure route transitions are complete and titles are set
+    const timer = setTimeout(() => {
+      trackPageView(location.pathname + location.search);
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [location]);
+
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
