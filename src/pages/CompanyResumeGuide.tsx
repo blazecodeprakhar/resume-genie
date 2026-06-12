@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, ArrowRight, BookOpen, Clock, X, Search, Check, TrendingUp, HelpCircle, Mail, Briefcase, Award } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
@@ -21,15 +21,44 @@ const categories = [
 ];
 
 export default function CompanyResumeGuide() {
+  const { companyId } = useParams<{ companyId?: string }>();
+  const navigate = useNavigate();
+
   const [activeTab, setActiveTab] = useState('faang');
-  const [selectedCompanyId, setSelectedCompanyId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
+  // Manage body overflow when a guide is open
+  useEffect(() => {
+    if (companyId && companyArticles[companyId]) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [companyId]);
+
   // SEO Update
   useEffect(() => {
-    document.title = "Company-Specific Resume Guides 2026 | FreeResumeKit";
+    const isDetail = companyId && companyArticles[companyId];
+    const article = isDetail ? companyArticles[companyId] : null;
+    
+    const pageTitle = article 
+      ? `${article.title.split(':')[0]} Resume Format & Guide 2026 | FreeResumeKit`
+      : "Company-Specific Resume Guides 2026 | FreeResumeKit";
+      
+    const pageDesc = article
+      ? `Get the exact recruiter-approved resume format, ATS keywords, and guidelines for ${article.title.split(':')[0]} in 2026.`
+      : "Exact resume formats preferred by Google, Amazon, TCS, Infosys, McKinsey, Goldman Sachs and 20+ top companies. Company-by-company resume guide for 2025-2026.";
+      
+    const pageUrl = article
+      ? `https://freeresumekit.com/blog/company-resume-guide/${companyId}`
+      : "https://freeresumekit.com/blog/company-resume-guide";
+
+    document.title = pageTitle;
     
     // Description Meta
     let metaDesc = document.querySelector('meta[name="description"]');
@@ -38,7 +67,7 @@ export default function CompanyResumeGuide() {
       metaDesc.setAttribute('name', 'description');
       document.head.appendChild(metaDesc);
     }
-    metaDesc.setAttribute('content', "Exact resume formats preferred by Google, Amazon, TCS, Infosys, McKinsey, Goldman Sachs and 20+ top companies. Company-by-company resume guide for 2025-2026.");
+    metaDesc.setAttribute('content', pageDesc);
 
     // Canonical
     let canonical = document.querySelector('link[rel="canonical"]');
@@ -47,7 +76,7 @@ export default function CompanyResumeGuide() {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://freeresumekit.com/blog/company-resume-guide');
+    canonical.setAttribute('href', pageUrl);
 
     // JSON-LD Schema
     let schemaScript = document.getElementById('company-seo-schema');
@@ -57,25 +86,44 @@ export default function CompanyResumeGuide() {
     schemaScript = document.createElement('script');
     schemaScript.setAttribute('id', 'company-seo-schema');
     schemaScript.setAttribute('type', 'application/ld+json');
-    schemaScript.innerHTML = JSON.stringify({
+    
+    const schemaData = article ? {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": pageTitle,
+      "description": pageDesc,
+      "url": pageUrl,
+      "publisher": {
+        "@type": "Organization",
+        "name": "FreeResumeKit",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://freeresumekit.com/favicon.svg"
+        }
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "FreeResumeKit"
+      }
+    } : {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "Company-Specific Resume Guides 2026 | FreeResumeKit",
-      "description": "Exact resume formats preferred by Google, Amazon, TCS, Infosys, McKinsey, Goldman Sachs and 20+ top companies.",
-      "url": "https://freeresumekit.com/blog/company-resume-guide"
-    });
+      "name": pageTitle,
+      "description": pageDesc,
+      "url": pageUrl
+    };
+    
+    schemaScript.innerHTML = JSON.stringify(schemaData);
     document.head.appendChild(schemaScript);
-  }, []);
+  }, [companyId]);
 
   const handleOpenModal = (id: string) => {
-    setSelectedCompanyId(id);
     trackEvent('CompanyGuide', 'Open Guide', id);
-    document.body.style.overflow = 'hidden';
+    navigate(`/blog/company-resume-guide/${id}`);
   };
 
   const handleCloseModal = () => {
-    setSelectedCompanyId(null);
-    document.body.style.overflow = '';
+    navigate('/blog/company-resume-guide');
   };
 
   const handleSubscribe = (e: React.FormEvent) => {
@@ -87,7 +135,7 @@ export default function CompanyResumeGuide() {
     }
   };
 
-  const selectedArticle = selectedCompanyId ? companyArticles[selectedCompanyId] : null;
+  const selectedArticle = (companyId && companyArticles[companyId]) ? companyArticles[companyId] : null;
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300">

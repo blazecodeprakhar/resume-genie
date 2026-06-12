@@ -17,6 +17,16 @@ import { trackPageView } from "./utils/analytics";
 
 const queryClient = new QueryClient();
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -36,6 +46,7 @@ function AnimatedRoutes() {
         <Route path="/preview" element={<PageTransition><PreviewPage /></PageTransition>} />
         <Route path="/blog" element={<PageTransition><BlogPage /></PageTransition>} />
         <Route path="/blog/company-resume-guide" element={<PageTransition><CompanyResumeGuide /></PageTransition>} />
+        <Route path="/blog/company-resume-guide/:companyId" element={<PageTransition><CompanyResumeGuide /></PageTransition>} />
         <Route path="/blog/:id" element={<PageTransition><BlogPage /></PageTransition>} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
@@ -49,6 +60,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <AnimatedRoutes />
       </BrowserRouter>
     </TooltipProvider>
