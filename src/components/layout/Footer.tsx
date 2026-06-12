@@ -33,6 +33,7 @@ export default function Footer() {
               <li><a href="#features" className="hover:text-foreground transition-colors">Features</a></li>
               <li><a href="#pricing" className="hover:text-foreground transition-colors">Free Forever</a></li>
               <li><Link to="/builder" className="hover:text-foreground transition-colors">Resume Builder</Link></li>
+              <li><Link to="/blog" className="hover:text-foreground transition-colors">Blog</Link></li>
             </ul>
           </div>
 

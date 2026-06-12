@@ -98,7 +98,8 @@ export default function PreviewPage() {
           scrollY: 0,
           scrollX: 0
         },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const }
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
       };
       
       await html2pdf().set(opt).from(element).save();

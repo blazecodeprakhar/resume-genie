@@ -112,6 +112,10 @@ export default function Navbar() {
             </a>
           ))}
 
+          <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Blog
+          </Link>
+
           {/* Divider */}
           <div className="h-5 w-px bg-border" />
 
@@ -167,6 +171,14 @@ export default function Navbar() {
                     {link.label}
                   </a>
                 ))}
+
+                <Link
+                  to="/blog"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center px-3 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                >
+                  Blog
+                </Link>
 
                 {/* Free Tools section */}
                 <div className="pt-3">

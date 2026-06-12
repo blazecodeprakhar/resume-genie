@@ -8,11 +8,11 @@ interface Props {
 export default function CreativeTemplate({ data, generated }: Props) {
   const { personalInfo } = data;
   return (
-    <div className="h-[296mm] min-h-[296mm] overflow-hidden relative bg-white text-gray-800 text-[11px] leading-relaxed" style={{ width: '210mm', fontFamily: 'Inter, sans-serif' }}>
+    <div className="min-h-[297mm] relative bg-white text-gray-800 text-[11px] leading-relaxed flex flex-col" style={{ width: '210mm', fontFamily: 'Inter, sans-serif' }}>
       {/* Accent bar */}
       <div className="h-2 bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500" />
 
-      <div className="flex">
+      <div className="flex flex-1">
         {/* Left column */}
         <div className="w-[280px] bg-gray-50 p-7 space-y-6 border-r border-gray-100">
           <div>

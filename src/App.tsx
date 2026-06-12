@@ -8,6 +8,8 @@ import PageTransition from "@/components/PageTransition";
 import Index from "./pages/Index.tsx";
 import BuilderPage from "./pages/BuilderPage.tsx";
 import PreviewPage from "./pages/PreviewPage.tsx";
+import BlogPage from "./pages/BlogPage.tsx";
+import CompanyResumeGuide from "./pages/CompanyResumeGuide.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 import { useEffect } from "react";
@@ -32,6 +34,9 @@ function AnimatedRoutes() {
         <Route path="/" element={<PageTransition><Index /></PageTransition>} />
         <Route path="/builder" element={<PageTransition><BuilderPage /></PageTransition>} />
         <Route path="/preview" element={<PageTransition><PreviewPage /></PageTransition>} />
+        <Route path="/blog" element={<PageTransition><BlogPage /></PageTransition>} />
+        <Route path="/blog/company-resume-guide" element={<PageTransition><CompanyResumeGuide /></PageTransition>} />
+        <Route path="/blog/:id" element={<PageTransition><BlogPage /></PageTransition>} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>

@@ -1,4 +1,4 @@
-import { Sparkles, Shield, Layout, Download, ClipboardList, Cpu, FileDown, Star, Check } from 'lucide-react';
+import { Sparkles, Shield, Layout, Download, ClipboardList, Cpu, FileDown, Star, Check, ArrowRight, BookOpen, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/layout/Navbar';
@@ -194,6 +194,121 @@ export default function LandingPage() {
         </section>
       </ParallaxSection>
 
+      {/* Blog/Resources Section */}
+      <section className="py-20 md:py-28 border-t border-border bg-muted/20">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <ScrollReveal className="text-center mb-16">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/20 bg-primary/10 text-xs font-semibold text-primary uppercase tracking-wider mb-4">
+              <Sparkles className="h-3.5 w-3.5" />
+              Latest Career Resources
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">Featured Resume &amp; Career Guides</h2>
+            <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">
+              Master the job search with recruiter-approved tips, ATS guides, and remote work strategies.
+            </p>
+          </ScrollReveal>
+
+          {/* New Company Guides Promo Banner */}
+          <div className="max-w-5xl mx-auto mb-12">
+            <Link to="/blog/company-resume-guide" className="group block relative overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-r from-indigo-950 via-slate-900 to-slate-950 p-6 md:p-8 hover:shadow-elevated hover:border-primary/40 transition-all duration-300">
+              <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:30px_30px]" />
+              <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-primary/10 blur-[80px] -z-10" />
+              <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="text-left">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary/20 border border-primary/30 text-xs font-bold text-primary uppercase tracking-wider mb-3">
+                    <Sparkles className="h-3 w-3" /> New Guide
+                  </span>
+                  <h3 className="text-2xl md:text-3xl font-black text-white leading-tight mb-2 group-hover:text-primary transition-colors">
+                    Company-Specific Resume Guides 2026
+                  </h3>
+                  <p className="text-slate-300 text-sm md:text-base max-w-2xl">
+                    Exact resume formats, keywords, and recruiter preferences for Google, Amazon, Meta, TCS, Infosys, McKinsey, Goldman Sachs, and 20+ top employers.
+                  </p>
+                </div>
+                <div className="shrink-0">
+                  <Button className="gradient-primary text-white font-bold rounded-xl px-5 py-4 shadow-primary group-hover:opacity-90 transition-opacity">
+                    Access Guides
+                    <ArrowRight className="h-4 w-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {[
+              {
+                id: 'ats',
+                title: 'What is ATS? How to Make Your Resume Pass Applicant Tracking Systems in 2026',
+                excerpt: '75% of resumes are rejected before a human ever reads them. Learn exactly how ATS software works, which resume formats pass the filter, and the 7 rules to follow.',
+                tag: 'ATS Guide',
+                tagClass: 'bg-blue-500/10 text-blue-500 dark:text-blue-400',
+                readTime: '8 min read'
+              },
+              {
+                id: 'ai-resume-writing',
+                title: 'AI Resume Builder: How to Use ChatGPT &amp; AI Tools to Write Your Resume in 2026',
+                excerpt: 'AI is changing how resumes are written and scanned. Learn how to write a resume using ChatGPT, avoid the common AI traps, and get shortlisted.',
+                tag: 'AI Guide',
+                tagClass: 'bg-indigo-500/10 text-indigo-500 dark:text-indigo-400',
+                readTime: '6 min read'
+              },
+              {
+                id: 'fresher-india',
+                title: 'Resume Format for Freshers in India 2026 — Free Format With Sample',
+                excerpt: 'The exact resume format that works for Indian companies — from TCS and Infosys to high-growth startups — with a sample you can copy today.',
+                tag: 'India Freshers',
+                tagClass: 'bg-amber-500/10 text-amber-500 dark:text-amber-400',
+                readTime: '7 min read'
+              }
+            ].map((article) => (
+              <div
+                key={article.id}
+                className="group flex flex-col justify-between rounded-2xl border border-border bg-card shadow-card hover:shadow-elevated hover:border-primary/20 transition-all duration-300 overflow-hidden"
+              >
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${article.tagClass}`}>
+                      {article.tag}
+                    </span>
+                  </div>
+
+                  <Link to={`/blog/${article.id}`}>
+                    <h3 className="font-bold text-lg tracking-tight text-card-foreground group-hover:text-primary transition-colors line-clamp-2 mb-3 cursor-pointer">
+                      {article.title}
+                    </h3>
+                  </Link>
+                  
+                  <p className="text-muted-foreground text-xs md:text-sm line-clamp-3 leading-relaxed">
+                    {article.excerpt}
+                  </p>
+                </div>
+
+                <div className="px-6 pb-6 pt-4 border-t border-border/50 flex items-center justify-between text-xs text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <BookOpen className="h-3.5 w-3.5 text-primary/70" />
+                    <span>{article.readTime}</span>
+                  </div>
+                  <Link to={`/blog/${article.id}`} className="text-primary font-bold inline-flex items-center group-hover:translate-x-1 transition-transform">
+                    Read Guide
+                    <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary/5 rounded-xl px-6 py-5 font-semibold">
+              <Link to="/blog">
+                View All Career Articles
+                <ArrowRight className="h-4 w-4 ml-1.5" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       <ScrollReveal direction="none" scale>
         {/* FAQ Section - rich keyword content for Google */}
         <section id="faq" className="py-16 md:py-20 bg-muted/20 border-t border-border">
@@ -206,7 +321,7 @@ export default function LandingPage() {
               {[
                 {
                   q: 'Is FreeResumeKit really 100% free?',
-                  a: 'Yes. FreeResumeKit is completely free forever — no credit card, no subscription, no watermarks. All 12 professional templates, AI-powered writing, and PDF download are included at zero cost.',
+                  a: 'Yes. FreeResumeKit is a completely free resume maker and builder. All 12 professional resume templates, ATS-friendly formats, AI-powered descriptions, and PDF downloads are 100% free with no hidden paywalls or watermark charges.',
                 },
                 {
                   q: 'Do I need to sign up or create an account?',
@@ -218,15 +333,15 @@ export default function LandingPage() {
                 },
                 {
                   q: 'How many resume templates are available?',
-                  a: 'FreeResumeKit offers 12 professional resume templates: Modern, Classic, Minimal, Executive, Creative, Bold, Elegant, Tech, Corporate, Starter, Infographic, and Academic — all free.',
+                  a: 'FreeResumeKit offers 12 professional resume templates: Modern, Classic, Minimal, Executive, Creative, Bold, Elegant, Tech, Corporate, Starter, Infographic, and Academic — including specialized developer-friendly resume template programmer options.',
                 },
                 {
                   q: 'Can I download my resume as a PDF without watermark?',
                   a: 'Yes. Download your completed resume as a clean, print-ready PDF with no watermarks, no branding, and no hidden charges.',
                 },
                 {
-                  q: 'How is FreeResumeKit different from Rezi, Teal, or Kickresume?',
-                  a: 'Unlike Rezi, Teal, or Kickresume — which require sign-ups and limit free features — FreeResumeKit gives you full access to every feature completely free with no account needed.',
+                  q: 'How is FreeResumeKit different from Resume Worded, Resume Ground, Rezi, or Teal?',
+                  a: 'Unlike Resume Worded, Resume Ground, Rezi, or Teal — which limit free features, impose page limits, or require premium subscriptions — FreeResumeKit gives you full access to every template and tool completely free.',
                 },
               ].map((item) => (
                 <details key={item.q} className="group rounded-2xl border border-border bg-card shadow-card overflow-hidden">
@@ -243,11 +358,11 @@ export default function LandingPage() {
 
         {/* Hidden SEO keyword paragraph for search engines */}
         <div className="sr-only" aria-hidden="true">
-          FreeResumeKit is a free AI resume builder online. Build ATS-optimized resumes free with artificial intelligence.
-          Free resume maker no sign up required. Free resume builder 2025. AI resume generator free. Free CV builder online.
-          Professional resume templates free download. Resume builder with PDF export free. ATS resume builder free.
+          FreeResumeKit is a free AI resume builder online and resume maker free. Build ATS-optimized resumes free with artificial intelligence.
+          Free resume maker no sign up required. Free resume builder 2026. AI resume generator free. Free CV builder online.
+          Professional resume templates free download, resume template, resume format, and developer resume template programmer styles.
+          Resume builder with PDF export free. ATS resume builder free. Compare with Resume Worded, Resume Ground, Rezi, and Teal.
           Best free resume builder no watermark. Free resume creator with AI writing assistant.
-          Alternative to Rezi, Teal, Kickresume, Resume Genius, Canva resume builder — completely free, no account needed.
         </div>
 
         <Footer />
